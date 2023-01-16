@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "instagramFollowersChecker ",
+  "description": "The extension will let you know who hasn't followed you",
+  "version": "0.0001",
+  "host_permissions": [
+    "https://www.instagram.com/"
+  ],
+  "content_scripts": [ {
+    "matches": ["https://www.instagram.com/*","http://www.instagram.com/*"],
+    "js": [
+      "js/content.js"
+    ]
+  }],
+  "web_accessible_resources": [{
+    "matches": ["https://www.instagram.com/*","http://www.instagram.com/*"],
+    "resources": ["js/*", "js/modules/*"]
+  }]
+}
