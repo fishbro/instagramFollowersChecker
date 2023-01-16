@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "instagramFollowersChecker ",
+  "name": "instagramFollowersChecker",
   "description": "The extension will let you know who hasn't followed you",
   "version": "0.0001",
   "host_permissions": [

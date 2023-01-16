@@ -1,15 +1,15 @@
 import {parseParameter} from "/js/modules/misc.js";
 
-const options = {
+export const options = {
     appId: parseParameter("X-IG-App-ID"),
     viewerId: parseParameter("viewerId"),
 };
 const headers = new Headers([["x-ig-app-id", options.appId]]);
 
 export async function callApi(
-    userId = options.viewerId,
+    qOptions = { count: 10 },
     querryType = "followers",
-    qOptions = { count: 10 }
+    userId = options.viewerId
 ) {
     const querryOptions = Object.entries(qOptions)
         .reduce((acc, [opt, val]) => [...acc, opt + "=" + val], [])
