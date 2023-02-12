@@ -1,6 +1,7 @@
-export const parseParameter = (param) => {
-    const container = [...document.querySelectorAll("script")].find((script) =>
-        script.innerHTML.indexOf(param) > -1
+export const parseParameter = (param: string): number | null => {
+    const nodes = document.querySelectorAll("script");
+    const container = [...nodes].find(
+        script => script.innerHTML.indexOf(param) > -1
     );
     if (container) {
         const result = container.innerHTML.match(
@@ -12,4 +13,5 @@ export const parseParameter = (param) => {
         console.warn(`${param} not found!`);
         return null;
     }
+    return null;
 };

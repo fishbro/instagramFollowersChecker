@@ -1,0 +1,26 @@
+.instagramFollowersCheckerApp {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(#fff, .1);
+  box-sizing: border-box;
+  padding: 1rem;
+  backdrop-filter: blur(5px);
+
+  .result{
+    overflow-y: scroll;
+    height: 100%;
+  }
+
+  .result__block{
+    margin: .5rem 0;
+  }
+
+  h3{
+    margin: .25rem 0;
+  }
+}
