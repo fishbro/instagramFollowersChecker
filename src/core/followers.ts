@@ -79,7 +79,7 @@ const getFollowers = (followingUsers: User[], followersUsers: User[]) => {
 };
 
 export const unfollowUser = (user: User): Promise<any> => {
-    return callApi({}, "unfollow", parseInt(user.pk), true); //https://www.instagram.com/api/v1/web/friendships/247944034/unfollow/
+    return callApi({}, "unfollow", parseInt(user.pk), true);
 };
 
 export const getFollowersAndFollowing = (): Promise<FollowersResult> => {
