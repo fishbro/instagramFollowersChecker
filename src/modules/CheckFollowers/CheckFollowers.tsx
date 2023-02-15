@@ -34,8 +34,12 @@ const CheckFollowers = () => {
             {followersCount && !loadStatus ? (
                 <div className="result">
                     {Object.keys(followers).map(type => (
-                        // @ts-ignore
-                        <UserSpoiler type={type} users={followers[type]} />
+                        <UserSpoiler
+                            key={type}
+                            type={type}
+                            // @ts-ignore
+                            users={followers[type]}
+                        />
                     ))}
                 </div>
             ) : null}
