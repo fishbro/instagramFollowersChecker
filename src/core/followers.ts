@@ -36,7 +36,7 @@ const getFollowers = (followingUsers: User[], followersUsers: User[]) => {
 
         usersPromises.push(
             new Promise((resolve, _reject) => {
-                setTimeout(resolve, i * 500);
+                setTimeout(resolve, i * 300);
             }).then(() => {
                 const prg = (100 / followingUsers.length) * i;
                 console.log(prg.toFixed(2));
@@ -85,3 +85,17 @@ export const getFollowersAndFollowing = (): Promise<FollowersResult> => {
         }
     );
 };
+
+export const mockupUser = (id: number): User => ({
+    account_badges: [],
+    full_name: `User ${id}`,
+    has_anonymous_profile_picture: false,
+    is_private: false,
+    is_verified: false,
+    latest_reel_media: 0,
+    pk: "user" + id,
+    pk_id: "user" + id,
+    profile_pic_id: id.toString(),
+    profile_pic_url: `https://picsum.photos/200/200?random=${id}`,
+    username: `user${id}`
+});

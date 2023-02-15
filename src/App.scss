@@ -1,26 +1,155 @@
 .instagramFollowersCheckerApp {
+  font-family: 'Avenir';
   position: fixed;
   top: 0;
-  right: 0;
+  right: -220px;
   height: 100vh;
   width: 220px;
   display: flex;
   flex-direction: column;
-  background: rgba(#fff, .1);
+  background: rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
-  padding: 1rem;
   backdrop-filter: blur(5px);
+  color: #efefef;
+  transition: right 0.5s ease;
+
+  &.show {
+    right: 0;
+  }
+
+  .app-button{
+    position: absolute;
+    left: -38px;
+    top: 16px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+
+  .logo{
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 54px;
+    text-align: center;
+  }
 
   .result{
     overflow-y: scroll;
     height: 100%;
   }
 
-  .result__block{
-    margin: .5rem 0;
+  button{
+    cursor: pointer;
   }
 
-  h3{
-    margin: .25rem 0;
+  .load{
+    width: 180px;
+    height: 32px;
+    line-height: 32px;
+    background: #EFEFEF;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0 auto;
+    font-weight: 400;
+    font-size: 12px;
+    color: #000000;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .reload{
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+    background: none;
+    border-radius: 0;
+    border: none;
+    outline: none;
+    padding: 0;
+    font-weight: 400;
+    font-size: 12px;
+    color: #fff;
+  }
+
+  .loadStatus,
+  .loadStatus svg{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .user-list{
+    background: rgba(217, 217, 217, 0.1);
+  }
+  .user-list__title{
+    position: relative;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 12px;
+    background: rgba(217, 217, 217, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    &:before{
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      border-top: 1px solid #efefef;
+      border-right: 1px solid #efefef;
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translate(0, -50%) rotate(45deg);
+
+      transition: transform 0.5s ease;
+    }
+  }
+  .user-list__users{
+    display: none;
+  }
+  .user-list{
+    &.show {
+      .user-list__title:before{
+        transform: translate(0, -50%) rotate(135deg);
+      }
+      .user-list__users {
+        display: block;
+      }
+    }
+  }
+  .user{
+    height: 48px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .user__icon{
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    background: #EFEFEF;
+    position: relative;
+    margin-left: 8px;
+
+    img{
+      display: block;
+      position: absolute;
+      left: 1px;
+      top: 1px;
+      width: 22px;
+      height: 22px;
+      border-radius: 100%;
+      object-fit: cover;
+    }
+  }
+  .user__name{
+    margin-left: 8px;
   }
 }
