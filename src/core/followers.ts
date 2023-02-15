@@ -1,5 +1,6 @@
 import { callApi, options } from "core/api";
 import { EventSystem } from "App";
+import { setDB } from "core/localDB";
 
 export type User = {
     account_badges: string[];
@@ -36,7 +37,7 @@ const getFollowers = (followingUsers: User[], followersUsers: User[]) => {
 
         usersPromises.push(
             new Promise((resolve, _reject) => {
-                setTimeout(resolve, i * 300);
+                setTimeout(resolve, i * 500);
             }).then(() => {
                 const prg = (100 / followingUsers.length) * i;
                 console.log(prg.toFixed(2));
@@ -49,7 +50,7 @@ const getFollowers = (followingUsers: User[], followersUsers: User[]) => {
     return Promise.all(usersPromises).then(data => {
         followingUsers.forEach((user, key) => (user.followed = data[key]));
         EventSystem.emit("ChangeLoadStatus", 0);
-        return followingUsers.reduce(
+        const users = followingUsers.reduce(
             (acc: FollowersResult, user) => {
                 if (
                     user.followed &&
@@ -75,6 +76,9 @@ const getFollowers = (followingUsers: User[], followersUsers: User[]) => {
             },
             { followed: [], not_followed: [], is_private: [] }
         );
+        setDB(users);
+
+        return users;
     });
 };
 

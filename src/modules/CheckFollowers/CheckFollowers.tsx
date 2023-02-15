@@ -2,24 +2,27 @@ import React, { useEffect } from "react";
 import { type FollowersResult, getFollowersAndFollowing } from "core/followers";
 import { EventSystem } from "App";
 import { UserSpoiler } from "modules/CheckFollowers/c/UserSpoiler";
+import { getDB } from "core/localDB";
 
 const CheckFollowers = () => {
-    const [followers, setFollowers] = React.useState<FollowersResult>({
-        followed: [],
-        not_followed: [],
-        is_private: []
-    });
+    const [followers, setFollowers] = React.useState<FollowersResult>(getDB());
     const [loadStatus, setLoadStatus] = React.useState(0);
 
     const getFollowers = () => {
         getFollowersAndFollowing().then(data => setFollowers(data));
     };
 
+    const updateFollowers = () => {
+        setFollowers(getDB());
+    };
+
     useEffect(() => {
         EventSystem.on("ChangeLoadStatus", setLoadStatus);
+        EventSystem.on("UpdateFollowersData", updateFollowers);
 
         return () => {
             EventSystem.off("ChangeLoadStatus", setLoadStatus);
+            EventSystem.off("UpdateFollowersData", updateFollowers);
         };
     }, [setLoadStatus]);
 

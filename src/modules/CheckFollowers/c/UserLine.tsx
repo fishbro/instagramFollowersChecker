@@ -1,13 +1,18 @@
 import React from "react";
 import { unfollowUser, User } from "core/followers";
 import { Link } from "react-router-dom";
+import { removeUserDB } from "core/localDB";
+import { EventSystem } from "App";
 
 export const UserLine = ({ user }: { user: User }) => {
     const removeUser = () => {
         if (
             window.confirm(`Do you really want to unfollow ${user.username}?`)
         ) {
-            unfollowUser(user);
+            unfollowUser(user).then(() => {
+                removeUserDB(user.pk);
+                EventSystem.emit("UpdateFollowersData");
+            });
         }
     };
 
