@@ -25,7 +25,8 @@ interface IQueryOptions {
 export async function callApi(
     qOptions: IQueryOptions = { count: 10 },
     querryType = "followers",
-    userId = options.viewerId || null
+    userId = options.viewerId || null,
+    isWeb = false
 ) {
     if (!options.appId)
         return simulateApi({ ...qOptions, count: 10 }, querryType);
@@ -34,7 +35,11 @@ export async function callApi(
         .reduce((acc: string[], [opt, val]) => [...acc, opt + "=" + val], [])
         .join("&");
     return fetch(
-        `https://www.instagram.com/api/v1/friendships/${userId}/${querryType}/?${queryOptions}`,
+        `https://www.instagram.com/api/v1${
+            isWeb ? "/web" : ""
+        }/friendships/${userId}/${querryType}/${
+            queryOptions ? "?" + queryOptions : ""
+        }`,
         {
             headers,
             body: null,

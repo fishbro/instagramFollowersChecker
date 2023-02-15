@@ -1,5 +1,6 @@
 import { User } from "core/followers";
 import React from "react";
+import { UserLine } from "modules/CheckFollowers/c/UserLine";
 
 export const UserSpoiler = ({
     type,
@@ -18,19 +19,7 @@ export const UserSpoiler = ({
             </div>
             <div className="user-list__users">
                 {users.map((follower: User) => {
-                    return (
-                        <div className="user" key={follower.pk_id}>
-                            <div className="user__icon">
-                                <img
-                                    src={follower.profile_pic_url}
-                                    alt={follower.full_name}
-                                />
-                            </div>
-                            <div className="user__name">
-                                {follower.username}
-                            </div>
-                        </div>
-                    );
+                    return <UserLine user={follower} key={follower.pk_id} />;
                 })}
             </div>
         </div>

@@ -13,6 +13,10 @@
   color: #efefef;
   transition: right 0.5s ease;
 
+  a{
+    color: #efefef;
+  }
+
   &.show {
     right: 0;
   }
@@ -151,5 +155,20 @@
   }
   .user__name{
     margin-left: 8px;
+  }
+  .user__remove{
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    background: rgba(#EFEFEF, .2);
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    padding: 0;
+    font-weight: 400;
+    font-size: 12px;
+    color: #fff;
+    margin-left: auto;
+    margin-right: 8px;
   }
 }
