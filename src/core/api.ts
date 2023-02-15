@@ -66,7 +66,8 @@ const simulateApi = (
                         users.push({
                             ...mockupUser(getRandomIntInclusive(1, 10)),
                             pk: "user" + getRandomIntInclusive(1, 10),
-                            pk_id: "user" + getRandomIntInclusive(1, 999999)
+                            pk_id: "user" + getRandomIntInclusive(1, 999999),
+                            is_private: getRandomIntInclusive(0, 1) === 1
                         });
                     }
                     resolve({ users });
