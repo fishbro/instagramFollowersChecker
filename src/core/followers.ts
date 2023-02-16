@@ -30,12 +30,13 @@ const following = (): Promise<{ users: User[] }> =>
     callApi({ count: 200 }, "following");
 
 const getFollowers = (followingUsers: User[], followersUsers: User[]) => {
-    const usersPromises = [];
+    const usersPromises = []; //TODO: check following list in first
     for (let i = 0; i < followingUsers.length; i++) {
         const user = followingUsers[i];
         const user_id = parseInt(user.pk);
 
         usersPromises.push(
+            //TODO: do it if necessary for accounts doesn't included in following list
             new Promise((resolve, _reject) => {
                 setTimeout(resolve, i * 500);
             }).then(() => {
