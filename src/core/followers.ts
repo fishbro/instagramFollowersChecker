@@ -1,5 +1,4 @@
-import { callApi, options } from "core/api";
-import { EventSystem } from "App";
+import { callApi } from "core/api";
 import { setDB } from "core/localDB";
 
 export type User = {
@@ -25,61 +24,37 @@ export type FollowersResult = {
 };
 
 const followers = (): Promise<{ users: User[] }> =>
-    callApi({ count: 200 }, "followers");
+    callApi({ count: 200 }, "followers"); //who follow me
 const following = (): Promise<{ users: User[] }> =>
-    callApi({ count: 200 }, "following");
+    callApi({ count: 200 }, "following"); //who I follow
 
-const getFollowers = (followingUsers: User[], followersUsers: User[]) => {
-    const usersPromises = []; //TODO: check following list in first
-    for (let i = 0; i < followingUsers.length; i++) {
-        const user = followingUsers[i];
-        const user_id = parseInt(user.pk);
+const getFollowers = (
+    followingUsers: User[],
+    followersUsers: User[],
+    useAdditionalCheck = false
+): Promise<FollowersResult> => {
+    return new Promise<FollowersResult>(resolve => {
+        const result: FollowersResult = {
+            followed: [],
+            not_followed: [],
+            is_private: []
+        };
+        followersUsers.forEach(user => {
+            result.followed.push(user);
+        });
 
-        usersPromises.push(
-            //TODO: do it if necessary for accounts doesn't included in following list
-            new Promise((resolve, _reject) => {
-                setTimeout(resolve, i * 500);
-            }).then(() => {
-                const prg = (100 / followingUsers.length) * i;
-                console.log(prg.toFixed(2));
-                EventSystem.emit("ChangeLoadStatus", prg.toFixed(2));
-                return callApi({ count: 3 }, "following", user_id);
-            })
-        );
-    }
+        const additionalCheck = (result.not_followed = followingUsers.filter(
+            user => followersUsers.findIndex(u => u.pk === user.pk) === -1
+        ));
 
-    return Promise.all(usersPromises).then(data => {
-        followingUsers.forEach((user, key) => (user.followed = data[key]));
-        EventSystem.emit("ChangeLoadStatus", 0);
-        const users = followingUsers.reduce(
-            (acc: FollowersResult, user) => {
-                if (
-                    user.followed &&
-                    user.followed.users.findIndex(
-                        u => u.pk === options.viewerId?.toString()
-                    ) > -1
-                ) {
-                    acc.followed.push(user);
-                } else if (user.is_private) {
-                    if (
-                        followersUsers.findIndex(
-                            u => u.pk === user.pk.toString()
-                        ) > -1
-                    ) {
-                        acc.followed.push(user);
-                    } else {
-                        acc.is_private.push(user);
-                    }
-                } else {
-                    acc.not_followed.push(user);
-                }
-                return acc;
-            },
-            { followed: [], not_followed: [], is_private: [] }
-        );
-        setDB(users);
+        if (useAdditionalCheck) {
+            console.log(additionalCheck); //TODO: do it if necessary for accounts doesn't included in following list
+            setDB(result);
+            resolve(result);
+        }
 
-        return users;
+        setDB(result);
+        resolve(result);
     });
 };
 
