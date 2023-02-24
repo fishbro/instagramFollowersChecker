@@ -5,7 +5,7 @@ export const parseParameter = (param: string): number | null => {
     );
     if (container) {
         const result = container.innerHTML.match(
-            new RegExp(`"${param}":.?"([1-9]*)"`)
+            new RegExp(`"${param}":.?"([0-9]*)"`)
         );
         if (result && result[1]) return parseInt(result[1]);
         console.warn(`${param} not found!`);
